@@ -4,17 +4,15 @@
 #include "node.hpp"
 
 constexpr int kBoardSize = 3;
-
+//class TTTCell
 enum class TTTCell {
   empty, x, o
 };
-
 // STATE for TicTacToe
 struct TTTState {
   std::array<std::array<TTTCell, kBoardSize>, kBoardSize> board;
   int active_role;
 };
-
 // ACTION for TicTacToe
 using TTTAction = std::pair<int, int>;
 
@@ -22,7 +20,7 @@ using TTTAction = std::pair<int, int>;
 namespace std
 {
 template<typename T, typename U>
-struct hash<pair<T, U> > {
+struct hash< pair<T, U> > {
   typedef pair<T, U> argument_type;
   typedef size_t result_type;
   result_type operator()(const argument_type& a) const {
@@ -32,7 +30,7 @@ struct hash<pair<T, U> > {
   }
 };
 }
-
+//HasColumn
 bool HasColumn(const TTTState& state, TTTCell cell) {
   for (auto row = 0; row < kBoardSize; ++row) {
     bool line = true;
@@ -48,7 +46,7 @@ bool HasColumn(const TTTState& state, TTTCell cell) {
   }
   return false;
 }
-
+//HasRow
 bool HasRow(const TTTState& state, TTTCell cell) {
   for (auto col = 0; col < kBoardSize; ++col) {
     bool line = true;
@@ -64,8 +62,7 @@ bool HasRow(const TTTState& state, TTTCell cell) {
   }
   return false;
 }
-
-
+//HasDiagonalTopLeft
 bool HasDiagonalTopLeft(const TTTState& state, TTTCell cell) {
   for (auto i = 0; i < kBoardSize; ++i) {
     if (state.board[i][i] != cell) {
@@ -74,7 +71,7 @@ bool HasDiagonalTopLeft(const TTTState& state, TTTCell cell) {
   }
   return true;
 }
-
+//HasDiagonalTopRight
 bool HasDiagonalTopRight(const TTTState& state, TTTCell cell) {
   for (auto i = 0; i < kBoardSize; ++i) {
     if (state.board[i][kBoardSize - i - 1] != cell) {
@@ -83,7 +80,7 @@ bool HasDiagonalTopRight(const TTTState& state, TTTCell cell) {
   }
   return true;
 }
-
+//CountCell
 int CountCell(const TTTState& state, TTTCell cell) {
   auto count = 0;
   for (auto col = 0; col < kBoardSize; ++col) {
@@ -95,7 +92,7 @@ int CountCell(const TTTState& state, TTTCell cell) {
   }
   return count;
 }
-
+//HasCell
 bool HasCell(const TTTState& state, TTTCell cell) {
   for (auto col = 0; col < kBoardSize; ++col) {
     for (auto row = 0; row < kBoardSize; ++row) {
@@ -106,7 +103,7 @@ bool HasCell(const TTTState& state, TTTCell cell) {
   }
   return false;
 }
-
+//IsTerminal
 bool IsTerminal(const TTTState& state) {
   return
       HasColumn(state, TTTCell::x) ||
@@ -117,7 +114,7 @@ bool IsTerminal(const TTTState& state) {
       HasDiagonalTopRight(state, TTTCell::o) ||
       !HasCell(state, TTTCell::empty);
 }
-
+//EvaluateTerminalState
 std::array<double, 2> EvaluateTerminalState(const TTTState& state) {
   if (HasColumn(state, TTTCell::x) || HasRow(state, TTTCell::x) || HasDiagonalTopLeft(state, TTTCell::x)) {
     return std::array<double, 2>{{1.0, -1.0}};
@@ -127,11 +124,11 @@ std::array<double, 2> EvaluateTerminalState(const TTTState& state) {
     return std::array<double, 2>{{0.0, 0.0}};
   }
 }
-
+//GetActiveRole
 int GetActiveRole(const TTTState& state) {
   return state.active_role;
 }
-
+//GetAction
 std::vector<TTTAction> GetAction(const TTTState& state) {
   std::vector<TTTAction> actions;
   for (auto col = 0; col < kBoardSize; ++col) {
@@ -143,14 +140,14 @@ std::vector<TTTAction> GetAction(const TTTState& state) {
   }
   return actions;
 }
-
+//GetNextState
 TTTState GetNextState(const TTTState& state, const TTTAction& action) {
   auto next_state = state;
   next_state.active_role = state.active_role == 0 ? 1 : 0;
   next_state.board[action.first][action.second] = state.active_role == 0 ? TTTCell::x : TTTCell::o;
   return next_state;
 }
-
+//StateToString
 std::string StateToString(const TTTState& state) {
   std::ostringstream oss;
   for (auto row = 0; row < kBoardSize; ++row) {
@@ -174,15 +171,16 @@ std::string StateToString(const TTTState& state) {
   }
   return oss.str();
 }
-
+//ActionToString
 std::string ActionToString(const TTTAction& action) {
   std::ostringstream oss;
   oss << "(" << action.first << ", " << action.second << ")";
   return oss.str();
 }
 
-
+//template<typename STATE, typename ACTION, int ROLE_COUNT>   // class StateMachine
 extern constexpr mcts::StateMachine<TTTState, TTTAction, 2> kTTTSM(IsTerminal, EvaluateTerminalState, GetActiveRole, GetAction, GetNextState, StateToString, ActionToString);
+//template<  class STATE, class ACTION, int ROLE_COUNT, const StateMachine<STATE, ACTION, ROLE_COUNT>& SM>  // class Searcher
 using TTTSearcher = mcts::Searcher<TTTState, TTTAction, 2, kTTTSM>;
 
 int main() {
@@ -194,7 +192,7 @@ int main() {
     }
   }
   TTTSearcher searcher(root_state);
-  for (auto i = 0; i < 10000; ++i) {
+  for (auto i = 0; i < 100; ++i) {
     searcher.SearchOnce();
   }
   std::cout << searcher.ToString() << std::endl;
