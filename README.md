@@ -10,6 +10,9 @@ https://github.com/muupan/mcts
 https://medium.com/swlh/tic-tac-toe-at-the-monte-carlo-a5e0394c7bc2
 
 
+The cpp project: using MCTS to play Tic-Tac-Toe
+Thr python file: using MCTS to play the game making all sum to 1
+
 井字游戏的规则是：在一个井字格子的棋盘里下棋，横竖斜一旦三子连子，则胜。而事实上，遵循一定的规则，该游戏便能保证不败，即至少是平局。 
 若是两人对战，则仅需要判断“胜负平”三种状态即可，比较简单，而人机对战的难点便在于让机器立于不败之地的下棋规则。下面会重点讲解不败的思路。
 
