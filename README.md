@@ -30,14 +30,6 @@ MCTS的算法分为四步：
 第四步是Backpropagation，就是把前面expansion出来的节点得分反馈到前面所有父节点中，更新这些节点的quality value和visit times，方便后面计算UCB值
 
 
-Monte-Carlo Tree Search Implementation for general purpose.
-
-
-
-
-The cpp project: using MCTS to play Tic-Tac-Toe
-
-The python file: using MCTS to play the game making all sum to 1
 
 井字游戏的规则是：在一个井字格子的棋盘里下棋，横竖斜一旦三子连子，则胜。而事实上，遵循一定的规则，该游戏便能保证不败，即至少是平局。 
 若是两人对战，则仅需要判断“胜负平”三种状态即可，比较简单，而人机对战的难点便在于让机器立于不败之地的下棋规则。下面会重点讲解不败的思路。
