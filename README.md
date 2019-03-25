@@ -6,6 +6,13 @@ How to run? python2 MCTS.py
 MCTS_to_play_Tic-Tac-Toe folder is the c++ version of MCTS to play Tic-Tac-Toe	
 
 
+Reference:
+
+https://github.com/muupan/mcts
+
+https://medium.com/swlh/tic-tac-toe-at-the-monte-carlo-a5e0394c7bc2
+
+
 理论基础：
 
 MCTS的算法分为四步：
@@ -22,10 +29,6 @@ MCTS的算法分为四步：
 Monte-Carlo Tree Search Implementation for general purpose.
 
 
-https://github.com/muupan/mcts
-
-
-https://medium.com/swlh/tic-tac-toe-at-the-monte-carlo-a5e0394c7bc2
 
 
 The cpp project: using MCTS to play Tic-Tac-Toe
