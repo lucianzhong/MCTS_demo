@@ -8,7 +8,7 @@ MCTS_to_play_Tic-Tac-Toe folder is the c++ version of MCTS to play Tic-Tac-Toe
 
 
 Reference:
-
+-------
 https://github.com/muupan/mcts
 
 https://medium.com/swlh/tic-tac-toe-at-the-monte-carlo-a5e0394c7bc2    
@@ -17,6 +17,7 @@ https://medium.com/swlh/tic-tac-toe-at-the-monte-carlo-a5e0394c7bc2
 
 
 理论基础：
+-------
 
 MCTS的算法分为四步：
 
