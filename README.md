@@ -13,7 +13,9 @@ https://github.com/muupan/mcts
 
 https://medium.com/swlh/tic-tac-toe-at-the-monte-carlo-a5e0394c7bc2    
 
+https://zhuanlan.zhihu.com/p/30458774
 
+https://github.com/tobegit3hub/ml_implementation/tree/master/monte_carlo_tree_search
 
 
 理论基础：
