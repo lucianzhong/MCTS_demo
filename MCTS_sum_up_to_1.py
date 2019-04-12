@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+#Reference: https://zhuanlan.zhihu.com/p/30458774
+#“选择数字保证累加和为1”
 import sys
 import math
 import random
@@ -10,8 +13,10 @@ AVAILABLE_CHOICE_NUMBER = len(AVAILABLE_CHOICES)
 MAX_ROUND_NUMBER = 10
 
 class State(object):
-  #蒙特卡罗树搜索的游戏状态，记录在某一个Node节点下的状态数据，包含当前的游戏得分、当前的游戏round数、从开始到当前的执行记录,需要实现判断当前状态是否达到游戏结束状态，支持从Action集合中随机取出操作。
+  #蒙特卡罗树搜索的游戏状态，记录在某一个Node节点下的状态数据，包含当前的游戏得分、当前的游戏round数、
+  #从开始到当前的执行记录,需要实现判断当前状态是否达到游戏结束状态，支持从Action集合中随机取出操作。
 
+  #每一个State都需要包含当前的游戏得分，可以继续当前游戏玩到第几轮，还有每一轮的选择是什么。
   def __init__(self):
     self.current_value = 0.0
     # For the first root node, the index is 0 and the game should start from 1
@@ -43,9 +48,11 @@ class State(object):
     else:
       return False
 
+  # 实现compute_reward()方法告诉用户当前得分是多少
   def compute_reward(self):
     return -abs(1 - self.current_value)
 
+  #提供get_next_state()方法用户进行游戏得到新的状态
   def get_next_state_with_random_choice(self):
     random_choice = random.choice([choice for choice in AVAILABLE_CHOICES])
     next_state = State()
@@ -65,18 +72,19 @@ class State(object):
         self.cumulative_choices)
 
 
-class Node(object):
-  """
-  蒙特卡罗树搜索的树结构的Node，包含了父节点和直接点等信息，还有用于计算UCB的遍历次数和quality值，还有游戏选择这个Node的State。
-  """
+class Node(object):  
+  #蒙特卡罗树搜索的树结构的Node，包含了父节点和直接点等信息，还有用于计算UCB的遍历次数和quality值，还有游戏选择这个Node的State
+  #需要定义N叉树的Node数据结构
+
+  #首先Node包含了parent和children属性，还有就是用于计算UCB值的visit times和quality value，
+  #为了关联游戏状态，我们还需要为每个Node绑定一个State对象。
+  #Node需要实现增加节点、删除节点等功能，还有需要提供函数判断子节点的个数和是否有空闲的子节点位置
 
   def __init__(self):
     self.parent = None
     self.children = []
-
     self.visit_times = 0
     self.quality_value = 0.0
-
     self.state = None
 
   def set_state(self, state):
@@ -212,7 +220,7 @@ def monte_carlo_tree_search(node):
   最后一步使用backup也就是把reward更新到所有经过的选中节点的节点上
   进行预测时，只需要根据Q值选择exploitation最大的节点即可，找到下一个最优的节点
   """
-  computation_budget = 2
+  computation_budget = 100
   # Run as much as possible under the computation budget
   for i in range(computation_budget):
     # 1. Find the best node to expand

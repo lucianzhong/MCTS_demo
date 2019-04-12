@@ -3,11 +3,14 @@
 #include <cassert>
 #include "node.hpp"
 
+//用于编译时的常量与常量函数
 constexpr int kBoardSize = 3;
+
 //class TTTCell
 enum class TTTCell {
   empty, x, o
 };
+
 // STATE for TicTacToe
 struct TTTState {
   std::array<std::array<TTTCell, kBoardSize>, kBoardSize> board;

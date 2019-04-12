@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/mcts.dir/src/tictactoe.cpp.o  -o mcts 
