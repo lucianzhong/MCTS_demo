@@ -1,3 +1,0 @@
-/home/zy/Desktop/MCTS_demo/MCTS_to_play_Tic-Tac-Toe/build/CMakeFiles/edit_cache.dir
-/home/zy/Desktop/MCTS_demo/MCTS_to_play_Tic-Tac-Toe/build/CMakeFiles/rebuild_cache.dir
-/home/zy/Desktop/MCTS_demo/MCTS_to_play_Tic-Tac-Toe/build/CMakeFiles/mcts.dir
